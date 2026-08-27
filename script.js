@@ -499,52 +499,6 @@ const consent = {
 timeline.push(consent);
 
 // -------------------------
-// ユーザID
-// -------------------------
-const userIdSurvey = {
-  type: jsPsychSurveyHtmlForm,
-  preamble: `
-    <div style="width:800px; margin:0 auto; text-align:left;">
-      <h3>ユーザIDについて</h3>
-      <p>あなたのユーザIDを入力してください。</p>
-    </div>
-  `,
-  html: `
-    <div style="width:800px; margin:0 auto; text-align:left;">
-      <p>
-        ユーザID：
-        <input
-          name="user_id"
-          type="text"
-          required
-          autocomplete="off"
-          pattern=".*\\S.*"
-          title="ユーザIDを入力してください"
-          style="
-            width:300px;
-            padding:8px;
-            font-size:16px;
-            margin-left:8px;
-          "
-        >
-      </p>
-    </div>
-  `,
-  button_label: "次へ",
-  data: {
-    trial_name: "user_id_survey"
-  },
-  on_finish: function(data) {
-    // 入力欄の前後にある余分な空白を削除する
-    if (data.response && typeof data.response.user_id === "string") {
-      data.response.user_id = data.response.user_id.trim();
-    }
-  }
-};
-
-timeline.push(userIdSurvey);
-
-// -------------------------
 // 属性アンケート
 // -------------------------
 const demographics = {
@@ -782,6 +736,9 @@ const stimulus = {
       <p>
         次ページ以降では、動画の技術的な出来栄えや制作手法そのものではなく、この動画がニュース報道として<br>
         どのように見えるか、また伝え方をどのように受け取るかについてお尋ねします。
+      </p>
+      <p style="text-decoration: underline;">
+        動画を最後まで視聴し、画面上に表示されている情報にも目を通してください。
       </p>
 
       <div style="margin-bottom:12px;">
@@ -1040,7 +997,71 @@ const manipulationCheck = {
 };
 timeline.push(manipulationCheck);
 
+// -------------------------
+// ユーザーID（アンケートの最後に表示）
+// -------------------------
+const userIdSurvey = {
+  type: jsPsychSurveyHtmlForm,
+  preamble: `
+    <div style="width:800px; max-width:calc(100% - 40px); margin:0 auto; text-align:left;">
+      <h3>ユーザーIDについて</h3>
+      <p>あなたのユーザーIDを教えてください。</p>
+    </div>
+  `,
+  html: `
+    <div style="width:800px; max-width:calc(100% - 40px); margin:0 auto; text-align:left;">
+      <p>ユーザーIDは、自分のプロフィールページで確認できます。</p>
+      <ol style="margin:10px 0 20px 1.4em; padding-left:0.8em; line-height:1.8;">
+        <li>右上にある自分の名前をクリックします。</li>
+        <li>プルダウンメニューから「自分の公開ページを確認」をクリックします。</li>
+        <li>表示された公開ページのアドレスにある数字がユーザーIDです。</li>
+      </ol>
 
+      <label for="crowdworks-user-id"><strong>ユーザーID</strong></label>
+      <input
+        id="crowdworks-user-id"
+        name="user_id"
+        type="text"
+        inputmode="numeric"
+        required
+        autocomplete="off"
+        pattern="[0-9０-９]+"
+        title="数字のみ入力してください"
+        style="
+          display:block;
+          width:300px;
+          max-width:100%;
+          box-sizing:border-box;
+          padding:8px;
+          margin-top:8px;
+          font-size:16px;
+        "
+      >
+      <p style="font-size:14px; color:#606060; margin-top:8px;">数字のみ入力してください。</p>
+    </div>
+  `,
+  button_label: "事後説明へ",
+  data: {
+    trial_name: "user_id_survey"
+  },
+  on_finish: function(data) {
+    const enteredUserId = String(
+      data.response && data.response.user_id
+        ? data.response.user_id
+        : ""
+    ).trim();
+
+    // 全角数字で入力された場合も、保存時は半角数字にそろえる
+    const normalizedUserId = enteredUserId.replace(
+      /[０-９]/g,
+      character => String.fromCharCode(character.charCodeAt(0) - 0xFEE0)
+    );
+
+    data.response.user_id = normalizedUserId;
+  }
+};
+
+timeline.push(userIdSurvey);
 
 // -------------------------
 // 実行
