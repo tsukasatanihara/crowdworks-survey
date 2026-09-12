@@ -740,7 +740,31 @@ const stimulus = {
       <p style="text-decoration: underline;">
         動画を最後まで視聴し、画面上に表示されている情報にも目を通してください。
       </p>
-
+      <div
+        style="
+          width:800px;
+          max-width:calc(100% - 40px);
+          margin:20px auto 24px auto;
+          padding:16px 20px;
+          box-sizing:border-box;
+          background:#fff3cd;
+          border:2px solid #f0ad4e;
+          border-radius:8px;
+          color:#7a4b00;
+          font-size:17px;
+          font-weight:bold;
+          line-height:1.8;
+          text-align:left;
+        "
+      >
+        <div style="font-size:18px; margin-bottom:6px;">
+          視聴前にご確認ください
+        </div>
+        <div>
+          この動画は、2026年５月時点で公表されていた情報を元に作成したものですので、古く感じられるかもしれませんが、その点は気にしないでください。
+        </div>
+      </div>
+      
       <div style="margin-bottom:12px;">
         <video
           id="news-video"
