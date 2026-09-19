@@ -246,7 +246,7 @@ function showDebriefScreen(mergedData) {
       showDebriefCompletionScreen(
         "回答を送信しました",
         "回答データの研究利用にご同意いただき、ありがとうございました。" +
-        '<br><br><span style="font-size:28px; font-weight:bold;">確認コードは「9898」です。</span>'
+        '<br><br><span style="font-size:28px; font-weight:bold;">確認コードは「9897」です。</span>'
       );
     } catch (error) {
       console.error("Data submission error:", error);
