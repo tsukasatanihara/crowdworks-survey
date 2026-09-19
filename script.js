@@ -1043,7 +1043,7 @@ const userIdSurvey = {
     <div style="width:800px; max-width:calc(100% - 40px); margin:0 auto; text-align:left;">
       <p>ユーザーIDは、自分のプロフィールページで確認できます。</p>
       <ol style="margin:10px 0 20px 1.4em; padding-left:0.8em; line-height:1.8;">
-        <li>右上にある自分の名前をクリックします。</li>
+        <li>クラウドワークスのページの右上にある自分の名前をクリックします。</li>
         <li>プルダウンメニューから「自分の公開ページを確認」をクリックします。</li>
         <li>表示された公開ページのアドレスにある数字がユーザーIDです。</li>
       </ol>
