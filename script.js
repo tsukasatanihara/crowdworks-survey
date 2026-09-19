@@ -49,7 +49,7 @@ function showDebriefScreen(mergedData) {
       <h2>実験終了後のご説明と、回答データの研究利用に関する同意の再確認</h2>
 
       <p>本研究にご参加いただき、誠にありがとうございました。</p>
-
+     
       <p>本研究では、YouTube上のニュース動画に表示されるコメントの内容によって、視聴者による報道の受け止め方や、報道に対する評価がどのように変化するかを検討しています。</p>
       
       <h3 style="font-size: 18px;">本研究で使用したニュース動画について</h3>
@@ -62,7 +62,7 @@ function showDebriefScreen(mergedData) {
       
       <p>動画の作成後に、政策、制度または社会状況が変化している可能性があります。そのため、提示した動画は、調査実施時点における最新のニュースや政策情報を提供することを目的としたものではありません。</p>
       
-      <p>本研究では全部で8本のニュース動画を使用し、参加者の皆様には、そのうち1本を見ていただきました。どの動画が提示されるかは調査システム上でランダムに決定されており、参加者の政治的信条、回答内容、属性等に応じて選ばれたものではありません。</p>
+      <p>本研究では全部で9本のニュース動画を使用し、参加者の皆様には、そのうち1本を見ていただきました。どの動画が提示されるかは調査システム上でランダムに決定されており、参加者の政治的信条、回答内容、属性等に応じて選ばれたものではありません。</p>
 
       <h3 style="font-size: 18px;">本研究で使用したコメントについて</h3>
 
@@ -245,7 +245,8 @@ function showDebriefScreen(mergedData) {
 
       showDebriefCompletionScreen(
         "回答を送信しました",
-        "回答データの研究利用にご同意いただき、ありがとうございました。"
+        "回答データの研究利用にご同意いただき、ありがとうございました。" +
+        '<br><br><span style="font-size:28px; font-weight:bold;">確認コードは「9898」です。</span>'
       );
     } catch (error) {
       console.error("Data submission error:", error);
@@ -466,6 +467,12 @@ const videoConditions = [
     video_src: "videos/taxcut.mp4",
     video_title: "【解説】消費税の減税について"
   },
+  {
+    video_condition: 9,
+    video_id: "weapon",
+    video_src: "videos/weapon.mp4",
+    video_title: "【解説】武器輸出の解禁について"
+  },
 ];
 
 const selectedVideo =
@@ -678,33 +685,33 @@ if (commentCondition === 'A') {
   // 中立性違反批判
   commentBlock = `
     ${makeCommentHTML("@media_watcher", "特定の見方だけを強く押し出していて、別の見方がほとんど伝わってこない", 31, "#cc0000")}
-    ${makeCommentHTML("@けん", "論点の扱い方が一方向に寄っていて、逆の見方があまり拾われていない", 24, "#0066cc")}
-    ${makeCommentHTML("@ABC","一方からの整理ばかりが前に出ていて、別の角度からはかなり見えにくい", 18, "#009966")}
-    ${makeCommentHTML("@tada","結論の置き方が少し早くて、ほかの捉え方にあまり触れていないように見える", 9, "#339966")}
+    ${makeCommentHTML("@けん", "取り上げ方が最初から片側に寄っていて、異なる立場からの見え方がかなり抜け落ちている", 24, "#0066cc")}
+    ${makeCommentHTML("@ABC","論点の扱い方が一方向に寄っていて、逆の見方があまり拾われていない", 18, "#009966")}
+    ${makeCommentHTML("@tada","説明の流れが一つの見方に沿いすぎていて、別の受け止め方が入りにくい", 9, "#339966")}
   `;
 } else if (commentCondition === 'B') {
   // 情報不足批判
   commentBlock = `
-    ${makeCommentHTML("@media_watcher", "何が起きたかは分かるけれど、そこに至る事情や経緯がほとんど見えない", 31, "#cc6600")}
-    ${makeCommentHTML("@けん","話の流れは追えるけれど、前提になる情報が少なくて全体像がつかみにくい", 24, "#3366cc")}
-    ${makeCommentHTML("@ABC","出来事だけが先に出ていて、周辺で何があったのかがかなり分かりにくい", 18, "#0099cc")}
-    ${makeCommentHTML("@tada","要点は分かるけれど、何が争点でなぜ問題なのかまではまだ見えてこない", 9, "#0099cc")}
+    ${makeCommentHTML("@media_watcher", "結果だけはつかめるけれど、その前に何が積み重なったのかが十分には見えてこない", 31, "#cc6600")}
+    ${makeCommentHTML("@けん","何が起きたかは分かるけれど、そこに至る事情や経緯がほとんど見えない", 24, "#3366cc")}
+    ${makeCommentHTML("@ABC","話の流れは追えるけれど、前提になる情報が少なくて全体像がつかみにくい", 18, "#0099cc")}
+    ${makeCommentHTML("@tada","出来事だけが先に出ていて、周辺で何があったのかがかなり分かりにくい", 9, "#0099cc")}
   `;
 } else if (commentCondition === 'C') {
   // 無関連コメント
   commentBlock = `
     ${makeCommentHTML("@media_watcher", "通知で流れてきたので開いた。関連に同じ話題の動画がいくつか並んでいた", 31, "#999933")}
-    ${makeCommentHTML("@けん","この長さなら移動中でも見られそうなので、いったん後で見るに入れておく", 24, "#663399")}
-    ${makeCommentHTML("@ABC","字幕が付いているので、音を出さずにそのまま流して見ている", 18, "#666666")}
-    ${makeCommentHTML("@tada","最近このチャンネルのサムネイルの雰囲気が少し変わった気がしている", 9, "#666666")}
+    ${makeCommentHTML("@けん","タイトルで話題は分かるので、先にほかの動画も見てから本編を確認する", 24, "#663399")}
+    ${makeCommentHTML("@ABC","最近このチャンネルのサムネイルの雰囲気が少し変わった気がしている", 18, "#666666")}
+    ${makeCommentHTML("@tada","おすすめに続けて出てきたので見に来た。あとで別の動画とも見比べる", 9, "#666666")}
   `;
 } else if (commentCondition === 'D') {
   // 非ジャーナリズム的だが否定的
   commentBlock = `
-    ${makeCommentHTML("@media_watcher", "字幕や図が続けて出てくるので、見ていると少し追いにくく感じた", 31, "#999933")}
-    ${makeCommentHTML("@けん","テロップの出方がやや慌ただしくて、見続けていると少し疲れやすく感じた", 24, "#663399")}
+    ${makeCommentHTML("@media_watcher", "画面の文字がやや多めに出るので、見続けていると少し目が疲れやすかった", 31, "#999933")}
+    ${makeCommentHTML("@けん","画面内の情報が少し詰め込み気味で、見ているとややせわしなく感じた", 24, "#663399")}
     ${makeCommentHTML("@ABC","画面の切り替えが少し細かすぎて、見ているあいだに落ち着かなさを感じた", 18, "#666666")}
-    ${makeCommentHTML("@tada","冒頭から本題に入るまでが少し長めで、見ている途中で集中が切れやすかった", 9, "#666666")}
+    ${makeCommentHTML("@tada","テロップの出方がやや慌ただしくて、見続けていると少し疲れやすく感じた", 9, "#666666")}
   `;
 } else if (commentCondition === 'E') {
   // コメントなし
@@ -1029,7 +1036,7 @@ const userIdSurvey = {
   preamble: `
     <div style="width:800px; max-width:calc(100% - 40px); margin:0 auto; text-align:left;">
       <h3>ユーザーIDについて</h3>
-      <p>あなたのユーザーIDを教えてください。</p>
+      <p>あなたのユーザーIDを教えてください。間違えると仕事を承認できませんので注意してください。</p>
     </div>
   `,
   html: `
